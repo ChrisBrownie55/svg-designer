@@ -1,0 +1,9 @@
+# Build
+/pkg/
+
+# Packages
+/node_modules/
+/web_modules
+
+# Local settings
+/.vscode/

@@ -1,0 +1,21 @@
+{
+  "name": "svg-designer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prepare": "pika-web --clean",
+    "start": "serve ./"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "haunted": "^4.6.2",
+    "lit-html": "^1.1.2"
+  },
+  "devDependencies": {
+    "@pika/web": "^0.6.1",
+    "serve": "^11.2.0"
+  }
+}
