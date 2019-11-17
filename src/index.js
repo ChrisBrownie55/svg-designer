@@ -27,6 +27,34 @@ function App() {
     [elements]
   );
 
+  const newElement = useCallback(
+    event => {
+      const { element } = event.detail;
+      setElements(elements.concat(element));
+    },
+    [elements]
+  );
+
+  const updatePosition = useCallback(
+    event => {
+      const { index, x, y } = event.detail;
+      const element = { ...elements[index], x, y };
+
+      setElements(replaceAtIndex(elements, index, element));
+    },
+    [elements]
+  );
+
+  const updateStyle = useCallback(
+    event => {
+      const { style, index } = event.detail;
+      const element = { ...elements[index], style };
+
+      setElements(elements.replaceAtIndex(elements, index, element));
+    },
+    [elements]
+  );
+
   return html`
     <element-list
       .elements=${elements}
@@ -34,9 +62,14 @@ function App() {
       @toggle-hidden=${toggleHidden}
       @delete-element=${deleteElement}
     ></element-list>
-    <design-editor></design-editor>
+    <design-editor
+      .elements=${elements}
+      @new-element=${newElement}
+      @update-position=${updatePosition}
+    ></design-editor>
     <style-editor
       .element=${activeElement && elements[activeElement]}
+      @update-style=${updateStyle}
     ></style-editor>
   `;
 }
