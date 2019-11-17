@@ -5,4 +5,6 @@ function StyleEditor() {
   return html``;
 }
 
+StyleEditor.observedAttributes = ['element'];
+
 customElements.define('style-editor', component(StyleEditor));
