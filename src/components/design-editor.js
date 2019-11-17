@@ -5,4 +5,6 @@ function DesignEditor() {
   return html``;
 }
 
+DesignEditor.observedAttributes = ['elements'];
+
 customElements.define('design-editor', component(DesignEditor));
