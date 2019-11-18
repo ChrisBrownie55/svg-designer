@@ -16,10 +16,6 @@ function App() {
   const [elements, setElements] = useState([]);
   const [activeElement, setActiveElement] = useState(null);
 
-  useEffect(() => {
-    console.log(elements);
-  }, [elements]);
-
   const toggleHidden = useCallback(
     event => {
       const { index } = event.detail;

@@ -49,9 +49,15 @@ function DesignEditor({ elements }) {
 
     <main class="DesignEditor">
       <section class="DesignEditor__actions">
-        <button class="DesignEditor__action new-square">Square</button>
-        <button class="DesignEditor__action new-circle">Circle</button>
-        <button class="DesignEditor__action new-text">Text</button>
+        <button class="DesignEditor__action new-square" @click=${newRectangle}>
+          Square
+        </button>
+        <button class="DesignEditor__action new-circle" @click=${newCircle}>
+          Circle
+        </button>
+        <button class="DesignEditor__action new-text" @click=${newText}>
+          Text
+        </button>
       </section>
 
       ${svg`
