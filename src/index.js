@@ -10,6 +10,7 @@ import { replaceAtIndex, removeByIndex } from './lib/array-functions.js';
 import './components/element-list.js';
 import './components/design-editor.js';
 import './components/style-editor.js';
+import defaultElements from './lib/default-elements.js';
 
 function App() {
   const [elements, setElements] = useState([]);
@@ -42,7 +43,7 @@ function App() {
   const newElement = useCallback(
     event => {
       const { type } = event.detail;
-      setElements(elements.concat(element));
+      setElements(elements.concat(defaultElements[type]));
     },
     [elements]
   );
@@ -68,21 +69,29 @@ function App() {
   );
 
   return html`
-    <element-list
-      .elements=${elements}
-      .activeElement=${activeElement}
-      @toggle-hidden=${toggleHidden}
-      @delete-element=${deleteElement}
-    ></element-list>
-    <design-editor
-      .elements=${elements}
-      @new-element=${newElement}
-      @update-position=${updatePosition}
-    ></design-editor>
-    <style-editor
-      .element=${activeElement && elements[activeElement]}
-      @update-style=${updateStyle}
-    ></style-editor>
+    <style>
+      #root {
+        display: flex;
+      }
+    </style>
+
+    <div id="root">
+      <element-list
+        .elements=${elements}
+        .activeElement=${activeElement}
+        @toggle-hidden=${toggleHidden}
+        @delete-element=${deleteElement}
+      ></element-list>
+      <design-editor
+        .elements=${elements}
+        @new-element=${newElement}
+        @update-position=${updatePosition}
+      ></design-editor>
+      <style-editor
+        .element=${activeElement && elements[activeElement]}
+        @update-style=${updateStyle}
+      ></style-editor>
+    </div>
   `;
 }
 
