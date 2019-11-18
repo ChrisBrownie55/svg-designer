@@ -53,6 +53,8 @@ function ElementList({ elements, activeElement }) {
       .ElementList__item {
         display: flex;
         align-items: center;
+
+        margin-bottom: 0.45rem;
       }
 
       .ElementList__item > .item-title {
