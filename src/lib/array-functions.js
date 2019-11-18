@@ -3,7 +3,7 @@ export function removeByIndex(array, index) {
 }
 
 export function replaceAtIndex(array, index, value) {
-  array.filter((item, currentIndex) => {
+  return array.filter((item, currentIndex) => {
     if (currentIndex === index) {
       return value;
     }
