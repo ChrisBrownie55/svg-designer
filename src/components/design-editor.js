@@ -24,7 +24,28 @@ function DesignEditor({ elements }) {
   );
 
   return html`
-    <main>
+    <style>
+      .DesignEditor {
+        position: relative;
+      }
+
+      .DesignEditor__actions {
+        position: absolute;
+        top 0;
+        left: 50%;
+
+        display: flex;
+        transform: translateX(-50%);
+      }
+    </style>
+
+    <main class="DesignEditor">
+      <section class="DesignEditor__actions">
+        <button class="DesignEditor__action new-square">Square</button>
+        <button class="DesignEditor__action new-circle">Circle</button>
+        <button class="DesignEditor__action new-text">Text</button>
+      </section>
+
       ${svg`
         <svg xmlns="http://www.w3.org/2000/svg">
           ${svgElements}
