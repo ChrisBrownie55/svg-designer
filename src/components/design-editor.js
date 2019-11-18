@@ -50,7 +50,7 @@ function DesignEditor({ elements }) {
     <main class="DesignEditor">
       <section class="DesignEditor__actions">
         <button class="DesignEditor__action new-square" @click=${newRectangle}>
-          Square
+          Rectangle
         </button>
         <button class="DesignEditor__action new-circle" @click=${newCircle}>
           Circle
