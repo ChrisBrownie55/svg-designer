@@ -16,6 +16,14 @@ function App() {
   const [elements, setElements] = useState([]);
   const [activeElement, setActiveElement] = useState(null);
 
+  useEffect(() => {
+    setElements([
+      defaultElements['rectangle'],
+      defaultElements['circle'],
+      defaultElements['text']
+    ]);
+  }, []);
+
   const toggleHidden = useCallback(
     event => {
       const { index } = event.detail;
@@ -66,28 +74,28 @@ function App() {
 
   return html`
     <style>
-      #root {
+      :host {
         display: flex;
+        height: 100%;
+        width: 100%;
       }
     </style>
 
-    <div id="root">
-      <element-list
-        .elements=${elements}
-        .activeElement=${activeElement}
-        @toggle-hidden=${toggleHidden}
-        @delete-element=${deleteElement}
-      ></element-list>
-      <design-editor
-        .elements=${elements}
-        @new-element=${newElement}
-        @update-position=${updatePosition}
-      ></design-editor>
-      <style-editor
-        .element=${activeElement && elements[activeElement]}
-        @update-style=${updateStyle}
-      ></style-editor>
-    </div>
+    <element-list
+      .elements=${elements}
+      .activeElement=${activeElement}
+      @toggle-hidden=${toggleHidden}
+      @delete-element=${deleteElement}
+    ></element-list>
+    <design-editor
+      .elements=${elements}
+      @new-element=${newElement}
+      @update-position=${updatePosition}
+    ></design-editor>
+    <style-editor
+      .element=${activeElement && elements[activeElement]}
+      @update-style=${updateStyle}
+    ></style-editor>
   `;
 }
 

@@ -17,9 +17,18 @@ function ElementList({ elements, activeElement }) {
 
         return html`
           <article class="ElementList__item" ?active=${index === activeElement}>
-            <h3>${type}</h3>
-            <button @click=${toggleHidden}>${hidden ? 'Show' : 'Hide'}</button>
-            <button @click=${deleteElement}>Delete</button>
+            <p class="item-title">${type}</p>
+            <div class="item-actions">
+              <button
+                class="item-hide-toggle item-action"
+                @click=${toggleHidden}
+              >
+                ${hidden ? 'Show' : 'Hide'}
+              </button>
+              <button class="item-delete item-action" @click=${deleteElement}>
+                Delete
+              </button>
+            </div>
           </article>
         `;
       }),
@@ -27,10 +36,41 @@ function ElementList({ elements, activeElement }) {
   );
 
   return html`
-    <section class="ElementList">
-      <h2>Elements</h2>
-      ${elementList}
-    </section>
+    <style>
+      :host {
+        width: 12rem;
+        height: 100%;
+        padding: 1rem 1.15rem;
+
+        border-right: solid 1px lightgrey;
+      }
+
+      .ElementList__title {
+        margin-top: 0;
+        margin-bottom: 1rem;
+      }
+
+      .ElementList__item {
+        display: flex;
+        align-items: center;
+      }
+
+      .ElementList__item > .item-title {
+        margin: 0;
+        text-transform: capitalize;
+      }
+
+      .ElementList__item > .item-actions {
+        margin-left: auto;
+      }
+
+      .ElementList__item .item-action {
+        width: 3rem;
+      }
+    </style>
+
+    <h2 class="ElementList__title">Elements</h2>
+    ${elementList}
   `;
 }
 
