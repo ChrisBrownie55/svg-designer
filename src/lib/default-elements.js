@@ -1,6 +1,7 @@
 export default Object.freeze({
   rectangle: Object.freeze({
     type: 'rectangle',
+    hidden: false,
     x: 0,
     y: 0,
     width: 100,
@@ -10,6 +11,7 @@ export default Object.freeze({
   }),
   circle: Object.freeze({
     type: 'circle',
+    hidden: false,
     cx: 0,
     cy: 0,
     rx: 0,
@@ -17,6 +19,7 @@ export default Object.freeze({
   }),
   text: Object.freeze({
     type: 'text',
+    hidden: false,
     x: 0,
     y: 0,
     lengthAdjust: 'spacing',
