@@ -23,6 +23,14 @@ function DesignEditor({ elements }) {
     [elements]
   );
 
+  const [newRectangle, newCircle, newText] = useMemo(() => {
+    const newElement = type => () => {
+      this.dispatchEvent(new CustomEvent('new-element', { detail: { type } }));
+    };
+
+    return [newElement('rectangle'), newElement('circle'), newElement('text')];
+  }, []);
+
   return html`
     <style>
       .DesignEditor {

@@ -1,5 +1,10 @@
 import { html } from '/web_modules/lit-html.js';
-import { component, useState, useCallback } from '/web_modules/haunted.js';
+import {
+  component,
+  useState,
+  useCallback,
+  useEffect
+} from '/web_modules/haunted.js';
 import { replaceAtIndex, removeByIndex } from './lib/array-functions.js';
 
 import './components/element-list.js';
@@ -10,14 +15,21 @@ function App() {
   const [elements, setElements] = useState([]);
   const [activeElement, setActiveElement] = useState(null);
 
-  const toggleHidden = useCallback(event => {
-    const { index } = event.detail;
+  useEffect(() => {
+    console.log(elements);
+  }, [elements]);
 
-    const element = { ...elements[index] };
-    element.hidden = !element.hidden;
+  const toggleHidden = useCallback(
+    event => {
+      const { index } = event.detail;
 
-    setElements(replaceAtIndex(elements, index, element));
-  });
+      const element = { ...elements[index] };
+      element.hidden = !element.hidden;
+
+      setElements(replaceAtIndex(elements, index, element));
+    },
+    [elements]
+  );
 
   const deleteElement = useCallback(
     event => {
@@ -29,7 +41,7 @@ function App() {
 
   const newElement = useCallback(
     event => {
-      const { element } = event.detail;
+      const { type } = event.detail;
       setElements(elements.concat(element));
     },
     [elements]
