@@ -12,7 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "haunted": "^4.6.2",
-    "lit-html": "^1.1.2"
+    "lit-html": "^1.1.2",
+    "mini-debounce": "^1.0.6"
   },
   "devDependencies": {
     "@pika/web": "^0.6.1",
