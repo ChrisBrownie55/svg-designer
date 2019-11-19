@@ -5,24 +5,17 @@ import {
   useCallback,
   useEffect
 } from '/web_modules/haunted.js';
-import { replaceAtIndex, removeByIndex } from './lib/array-functions.js';
-
 import './components/element-list.js';
 import './components/design-editor.js';
 import './components/style-editor.js';
+
+import { replaceAtIndex, removeByIndex } from './lib/array-functions.js';
 import defaultElements from './lib/default-elements.js';
+import nanoid from '/web_modules/nanoid-esm.js';
 
 function App() {
   const [elements, setElements] = useState([]);
   const [activeElement, setActiveElement] = useState(null);
-
-  useEffect(() => {
-    setElements([
-      defaultElements['rectangle'],
-      defaultElements['circle'],
-      defaultElements['text']
-    ]);
-  }, []);
 
   const toggleHidden = useCallback(
     event => {
@@ -47,7 +40,12 @@ function App() {
   const newElement = useCallback(
     event => {
       const { type } = event.detail;
-      setElements(elements.concat(defaultElements[type]));
+      setElements(
+        elements.concat({
+          ...defaultElements[type],
+          id: nanoid()
+        })
+      );
     },
     [elements]
   );

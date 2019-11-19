@@ -1,5 +1,6 @@
 import { html, svg } from '/web_modules/lit-html.js';
 import { virtual, component, useMemo } from '/web_modules/haunted.js';
+
 import useComputedStyles from '../lib/use-computed-styles.js';
 
 const Rectangle = virtual(({ x, y, width, height, fill, stroke }) => {
@@ -22,8 +23,11 @@ const Circle = virtual(({ cx, cy, rx, ry, fill, stroke }) => {
 const Text = virtual(
   ({ x, y, fill, stroke, text, fontFamily, fontWeight, fontSize }) => {
     return svg`
-    <text x=${x} y=${y} fill=${fill} stroke=${stroke}>${text}</text>
-  `;
+      <style>
+        .
+      </style>
+      <text x=${x} y=${y} fill=${fill} stroke=${stroke}>${text}</text>
+    `;
   }
 );
 
