@@ -21,12 +21,16 @@ const Circle = virtual(({ cx, cy, rx, ry, fill, stroke }) => {
   `;
 });
 const Text = virtual(
-  ({ x, y, fill, stroke, text, fontFamily, fontWeight, fontSize }) => {
+  ({ x, y, fill, stroke, text, fontFamily, fontWeight, fontSize, id }) => {
     return svg`
       <style>
-        .
+        .${id} {
+          font-family: ${fontFamily};
+          font-weight: ${fontWeight};
+          font-size: ${fontSize}px;
+        }
       </style>
-      <text x=${x} y=${y} fill=${fill} stroke=${stroke}>${text}</text>
+      <text class=${id} x=${x} y=${y} fill=${fill} stroke=${stroke}>${text}</text>
     `;
   }
 );
