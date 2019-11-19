@@ -2,6 +2,7 @@ import { html, svg } from '/web_modules/lit-html.js';
 import { virtual, component, useMemo } from '/web_modules/haunted.js';
 
 import useComputedStyles from '../lib/use-computed-styles.js';
+import useDrag from '../lib/use-drag.js';
 
 const Rectangle = virtual(({ x, y, width, height, fill, stroke }) => {
   return svg`
@@ -16,8 +17,10 @@ const Rectangle = virtual(({ x, y, width, height, fill, stroke }) => {
   `;
 });
 const Circle = virtual(({ cx, cy, rx, ry, fill, stroke }) => {
+  const { state, dragStart, positionDelta, handleMouseDown } = useDrag();
+
   return svg`
-    <ellipse cx=${cx} cy=${cy} rx=${rx} ry=${ry} fill=${fill} stroke=${stroke} />
+    <ellipse @mousedown=${handleMouseDown} cx=${cx} cy=${cy} rx=${rx} ry=${ry} fill=${fill} stroke=${stroke} />
   `;
 });
 const Text = virtual(

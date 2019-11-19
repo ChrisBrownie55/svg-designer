@@ -3,6 +3,9 @@ import { useState, useEffect } from '/web_modules/haunted.js';
 export const NOT_DRAGGING = 'not dragging';
 export const DRAGGING = 'dragging';
 
+/**
+ * @returns {{ state: DRAGGING|NOT_DRAGGING, dragStart: { x: number, y: number }, positionDelta: { x: number, y: number }}}
+ */
 export default function useDrag() {
   const [state, setState] = useState(NOT_DRAGGING);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
@@ -38,11 +41,12 @@ export default function useDrag() {
         window.removeEventListener('mouseup', handleMouseUp);
       };
     }
-
-    return {
-      state,
-      dragStart,
-      positionDelta
-    };
   }, [state]);
+
+  return {
+    state,
+    dragStart,
+    positionDelta,
+    handleMouseDown
+  };
 }
