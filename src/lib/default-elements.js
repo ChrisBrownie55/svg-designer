@@ -13,8 +13,8 @@ export default Object.freeze({
   circle: Object.freeze({
     type: 'circle',
     hidden: false,
-    cx: 150,
-    cy: 50,
+    x: 150,
+    y: 50,
     rx: 50,
     ry: 50,
     fill: 'lightblue',

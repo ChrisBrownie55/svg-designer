@@ -1,30 +1,67 @@
 import { html, svg } from '/web_modules/lit-html.js';
-import { virtual, component, useMemo } from '/web_modules/haunted.js';
+import {
+  virtual,
+  component,
+  useMemo,
+  useEffect
+} from '/web_modules/haunted.js';
 
 import useComputedStyles from '../lib/use-computed-styles.js';
-import useDrag from '../lib/use-drag.js';
+import useDrag, { DRAGGING } from '../lib/use-drag.js';
 
-const Rectangle = virtual(({ x, y, width, height, fill, stroke }) => {
-  return svg`
+const Rectangle = virtual(
+  ({ x, y, width, height, fill, stroke, updatePosition }) => {
+    const { positionDelta, handleMouseDown } = useDrag(delta => {
+      updatePosition(x + delta.x, y + delta.y);
+    });
+
+    return svg`
     <rect
-      x=${x}
-      y=${y}
+      @mousedown=${handleMouseDown}
+      x=${x + positionDelta.x}
+      y=${y + positionDelta.y}
       width=${width}
       height=${height}
       fill=${fill}
       stroke=${stroke}
     />
   `;
-});
-const Circle = virtual(({ cx, cy, rx, ry, fill, stroke }) => {
-  const { state, dragStart, positionDelta, handleMouseDown } = useDrag();
+  }
+);
+const Circle = virtual(({ x, y, rx, ry, fill, stroke, updatePosition }) => {
+  const { positionDelta, handleMouseDown } = useDrag(delta => {
+    updatePosition(x + delta.x, y + delta.y);
+  });
 
   return svg`
-    <ellipse @mousedown=${handleMouseDown} cx=${cx} cy=${cy} rx=${rx} ry=${ry} fill=${fill} stroke=${stroke} />
+    <ellipse
+      @mousedown=${handleMouseDown}
+      cx=${x + positionDelta.x}
+      cy=${y + positionDelta.y}
+      rx=${rx}
+      ry=${ry}
+      fill=${fill}
+      stroke=${stroke}
+    />
   `;
 });
 const Text = virtual(
-  ({ x, y, fill, stroke, text, fontFamily, fontWeight, fontSize, id }) => {
+  ({
+    x,
+    y,
+    fill,
+    stroke,
+    text,
+    fontFamily,
+    fontWeight,
+    fontSize,
+    id,
+    updatePosition
+  }) => {
+    const { positionDelta, handleMouseDown } = useDrag(delta => {
+      updatePosition(x + delta.x, y + delta.y);
+    });
+
     return svg`
       <style>
         .${id} {
@@ -33,7 +70,12 @@ const Text = virtual(
           font-size: ${fontSize}px;
         }
       </style>
-      <text class=${id} x=${x} y=${y} fill=${fill} stroke=${stroke}>${text}</text>
+      <text @mousedown=${handleMouseDown} class=${id}
+        x=${x + positionDelta.x}
+        y=${y + positionDelta.y}
+        fill=${fill}
+        stroke=${stroke}
+      >${text}</text>
     `;
   }
 );
@@ -45,14 +87,29 @@ const elementMapping = {
 };
 
 function DesignEditor({ elements }) {
+  const updatePosition = index => (x, y) => {
+    this.dispatchEvent(
+      new CustomEvent('update-position', {
+        detail: {
+          index,
+          x,
+          y
+        }
+      })
+    );
+  };
+
   const svgElements = useMemo(
     () =>
-      elements.map(element => {
+      elements.map((element, index) => {
         if (element.hidden) {
           return null;
         }
 
-        return elementMapping[element.type](element);
+        return elementMapping[element.type]({
+          ...element,
+          updatePosition: updatePosition(index)
+        });
       }),
     [elements]
   );

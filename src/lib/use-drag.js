@@ -4,9 +4,9 @@ export const NOT_DRAGGING = 'not dragging';
 export const DRAGGING = 'dragging';
 
 /**
- * @returns {{ state: DRAGGING|NOT_DRAGGING, dragStart: { x: number, y: number }, positionDelta: { x: number, y: number }}}
+ * @returns {{ state: DRAGGING|NOT_DRAGGING, positionDelta: { x: number, y: number }, handleMouseDown: (event: MouseEvent) => {}}}
  */
-export default function useDrag() {
+export default function useDrag(onRelease) {
   const [state, setState] = useState(NOT_DRAGGING);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [positionDelta, setPositionDelta] = useState({ x: 0, y: 0 });
@@ -19,17 +19,22 @@ export default function useDrag() {
 
   useEffect(() => {
     if (state === DRAGGING) {
+      let updatedPositionDelta = positionDelta;
+
       // on mousemove recalculate the delta from the dragStart position
       function handleMouseMove(event) {
-        setPositionDelta({
+        updatedPositionDelta = {
           x: event.clientX - dragStart.x,
           y: event.clientY - dragStart.y
-        });
+        };
+        setPositionDelta(updatedPositionDelta);
       }
       window.addEventListener('mousemove', handleMouseMove);
 
-      // on mouseup stop all dragging and reset the delta in position
+      // on mouseup fire onRelease with the delta, then stop all dragging and reset the delta in position
       function handleMouseUp() {
+        onRelease(updatedPositionDelta);
+
         setState(NOT_DRAGGING);
         setPositionDelta({ x: 0, y: 0 });
       }
@@ -41,11 +46,10 @@ export default function useDrag() {
         window.removeEventListener('mouseup', handleMouseUp);
       };
     }
-  }, [state]);
+  }, [state, dragStart]);
 
   return {
     state,
-    dragStart,
     positionDelta,
     handleMouseDown
   };
