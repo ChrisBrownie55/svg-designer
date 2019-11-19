@@ -24,13 +24,13 @@ export default Object.freeze({
     type: 'text',
     hidden: false,
     x: 0,
-    y: 0,
+    y: 120,
     lengthAdjust: 'spacing',
     textLength: 0,
     fill: 'black',
     stroke: 'none',
     text: 'The quick brown fox jumps over the lazy dog',
-    fontFamily: 'Roboto',
+    fontFamily: 'Roboto, Arial, Helvetica, sans-serif',
     fontWeight: 500,
     fontSize: 16
   })
