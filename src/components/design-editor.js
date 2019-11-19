@@ -2,22 +2,30 @@ import { html, svg } from '/web_modules/lit-html.js';
 import { virtual, component, useMemo } from '/web_modules/haunted.js';
 import useComputedStyles from '../lib/use-computed-styles.js';
 
-const Rectangle = virtual(props => {
-  if (props.hidden) {
-    return null;
-  }
-
+const Rectangle = virtual(({ x, y, width, height, fill, stroke }) => {
   return svg`
     <rect
-      x=${props.x}
-      y=${props.y}
-      width=${props.width}
-      height=${props.height}
-    ></rect>
+      x=${x}
+      y=${y}
+      width=${width}
+      height=${height}
+      fill=${fill}
+      stroke=${stroke}
+    />
   `;
 });
-const Circle = virtual(props => {});
-const Text = virtual(props => {});
+const Circle = virtual(({ cx, cy, rx, ry, fill, stroke }) => {
+  return svg`
+    <ellipse cx=${cx} cy=${cy} rx=${rx} ry=${ry} fill=${fill} stroke=${stroke} />
+  `;
+});
+const Text = virtual(
+  ({ x, y, fill, stroke, text, fontFamily, fontWeight, fontSize }) => {
+    return svg`
+    <text x=${x} y=${y} fill=${fill} stroke=${stroke}>${text}</text>
+  `;
+  }
+);
 
 const elementMapping = {
   rectangle: Rectangle,
@@ -29,6 +37,10 @@ function DesignEditor({ elements }) {
   const svgElements = useMemo(
     () =>
       elements.map(element => {
+        if (element.hidden) {
+          return null;
+        }
+
         return elementMapping[element.type](element);
       }),
     [elements]
