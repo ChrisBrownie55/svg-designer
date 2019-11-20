@@ -9,7 +9,11 @@ import './components/element-list.js';
 import './components/design-editor.js';
 import './components/style-editor.js';
 
-import { replaceAtIndex, removeByIndex } from './lib/array-functions.js';
+import {
+  replaceAtIndex,
+  removeByIndex,
+  moveToIndex
+} from './lib/array-functions.js';
 import defaultElements from './lib/default-elements.js';
 import nanoid from '/web_modules/nanoid-esm.js';
 
@@ -19,58 +23,48 @@ function App() {
 
   console.log(elements);
 
-  const toggleHidden = useCallback(
-    event => {
-      const { index } = event.detail;
+  function toggleHidden(event) {
+    const { index } = event.detail;
 
-      const element = { ...elements[index] };
-      element.hidden = !element.hidden;
+    const element = { ...elements[index] };
+    element.hidden = !element.hidden;
 
-      setElements(replaceAtIndex(elements, index, element));
-    },
-    [elements]
-  );
+    setElements(replaceAtIndex(elements, index, element));
+  }
 
-  const deleteElement = useCallback(
-    event => {
-      const { index } = event.detail;
-      setElements(removeByIndex(elements, index));
-    },
-    [elements]
-  );
+  function deleteElement(event) {
+    const { index } = event.detail;
+    setElements(removeByIndex(elements, index));
+  }
 
-  const newElement = useCallback(
-    event => {
-      const { type } = event.detail;
-      setElements(
-        elements.concat({
-          ...defaultElements[type],
-          id: nanoid()
-        })
-      );
-    },
-    [elements]
-  );
+  function newElement(event) {
+    const { type } = event.detail;
+    setElements(
+      elements.concat({
+        ...defaultElements[type],
+        id: nanoid()
+      })
+    );
+  }
 
-  const updatePosition = useCallback(
-    event => {
-      const { index, x, y } = event.detail;
-      const element = { ...elements[index], x, y };
+  function updatePosition(event) {
+    const { index, x, y } = event.detail;
+    const element = { ...elements[index], x, y };
 
-      setElements(replaceAtIndex(elements, index, element));
-    },
-    [elements]
-  );
+    setElements(replaceAtIndex(elements, index, element));
+  }
 
-  const updateStyle = useCallback(
-    event => {
-      const { style, index } = event.detail;
-      const element = { ...elements[index], style };
+  function updateStyle(event) {
+    const { style, index } = event.detail;
+    const element = { ...elements[index], style };
 
-      setElements(elements.replaceAtIndex(elements, index, element));
-    },
-    [elements]
-  );
+    setElements(replaceAtIndex(elements, index, element));
+  }
+
+  function sortElement(event) {
+    const { index, delta } = event.detail;
+    setElements(moveToIndex(elements, index, index + delta));
+  }
 
   return html`
     <style>
@@ -86,6 +80,7 @@ function App() {
       .activeElement=${activeElement}
       @toggle-hidden=${toggleHidden}
       @delete-element=${deleteElement}
+      @sort-element=${sortElement}
     ></element-list>
     <design-editor
       .elements=${elements}

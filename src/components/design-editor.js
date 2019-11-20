@@ -103,6 +103,7 @@ function DesignEditor({ elements }) {
     () =>
       elements.map((element, index) => {
         if (element.hidden) {
+          debugger;
           return null;
         }
 
