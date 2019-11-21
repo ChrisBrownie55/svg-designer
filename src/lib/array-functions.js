@@ -13,15 +13,8 @@ export function replaceAtIndex(array, index, value) {
 }
 
 export function moveToIndex(array, startIndex, endIndex) {
-  return array.reduce((result, item, index) => {
-    if (index >= startIndex && index < endIndex) {
-      return result.concat(array[index + 1]);
-    }
+  let result = replaceAtIndex(array, startIndex, array[endIndex]);
+  result = replaceAtIndex(result, endIndex, array[startIndex]);
 
-    if (index === endIndex) {
-      return result.concat(array[startIndex]);
-    }
-
-    return result.concat(item);
-  }, []);
+  return result;
 }
