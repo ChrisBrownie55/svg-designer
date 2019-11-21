@@ -1,10 +1,5 @@
 import { html } from '/web_modules/lit-html.js';
-import {
-  component,
-  useState,
-  useCallback,
-  useEffect
-} from '/web_modules/haunted.js';
+import { component, useState, useEffect } from '/web_modules/haunted.js';
 import './components/element-list.js';
 import './components/design-editor.js';
 import './components/style-editor.js';
@@ -21,7 +16,7 @@ function App() {
   const [elements, setElements] = useState([]);
   const [activeElement, setActiveElement] = useState(null);
 
-  console.log(elements);
+  useEffect(() => console.log(elements), [elements]);
 
   function toggleHidden(event) {
     const { index } = event.detail;

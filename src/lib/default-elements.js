@@ -35,3 +35,7 @@ export default Object.freeze({
     fontSize: 16
   })
 });
+
+export const RECTANGLE = 'rectangle';
+export const CIRCLE = 'circle';
+export const TEXT = 'text';

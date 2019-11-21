@@ -1,115 +1,86 @@
 import { html, svg } from '/web_modules/lit-html.js';
-import {
-  virtual,
-  component,
-  useMemo,
-  useEffect
-} from '/web_modules/haunted.js';
+import { component, useMemo, virtual } from '/web_modules/haunted.js';
 
 import useComputedStyles from '../lib/use-computed-styles.js';
-import useDrag, { DRAGGING } from '../lib/use-drag.js';
+import useDrag from '../lib/use-drag.js';
 
-const Rectangle = virtual(
-  ({ x, y, width, height, fill, stroke, updatePosition }) => {
-    const { positionDelta, handleMouseDown } = useDrag(delta => {
-      updatePosition(x + delta.x, y + delta.y);
-    });
+import { RECTANGLE, CIRCLE, TEXT } from '../lib/default-elements.js';
 
-    return svg`
-    <rect
-      @mousedown=${handleMouseDown}
-      x=${x + positionDelta.x}
-      y=${y + positionDelta.y}
-      width=${width}
-      height=${height}
-      fill=${fill}
-      stroke=${stroke}
-    />
-  `;
-  }
-);
-const Circle = virtual(({ x, y, rx, ry, fill, stroke, updatePosition }) => {
+function DesignElement({ element, index, dispatchEvent }) {
   const { positionDelta, handleMouseDown } = useDrag(delta => {
     updatePosition(x + delta.x, y + delta.y);
   });
 
-  return svg`
-    <ellipse
-      @mousedown=${handleMouseDown}
-      cx=${x + positionDelta.x}
-      cy=${y + positionDelta.y}
-      rx=${rx}
-      ry=${ry}
-      fill=${fill}
-      stroke=${stroke}
-    />
-  `;
-});
-const Text = virtual(
-  ({
-    x,
-    y,
-    fill,
-    stroke,
-    text,
-    fontFamily,
-    fontWeight,
-    fontSize,
-    id,
-    updatePosition
-  }) => {
-    const { positionDelta, handleMouseDown } = useDrag(delta => {
-      updatePosition(x + delta.x, y + delta.y);
-    });
-
-    return svg`
-      <style>
-        .${id} {
-          font-family: ${fontFamily};
-          font-weight: ${fontWeight};
-          font-size: ${fontSize}px;
-        }
-      </style>
-      <text @mousedown=${handleMouseDown} class=${id}
-        x=${x + positionDelta.x}
-        y=${y + positionDelta.y}
-        fill=${fill}
-        stroke=${stroke}
-      >${text}</text>
-    `;
-  }
-);
-
-const elementMapping = {
-  rectangle: Rectangle,
-  circle: Circle,
-  text: Text
-};
-
-function DesignEditor({ elements }) {
-  const updatePosition = index => (x, y) => {
-    this.dispatchEvent(
+  const updatePosition = (x, y) => {
+    dispatchEvent(
       new CustomEvent('update-position', {
         detail: {
           index,
           x,
           y
-        }
+        },
+        bubbles: true
       })
     );
   };
 
+  const { x, y, fill, stroke, id } = element;
+  switch (element.type) {
+    case RECTANGLE:
+      const { width, height } = element;
+      return svg`
+        <rect
+          @mousedown=${handleMouseDown}
+          x=${x + positionDelta.x}
+          y=${y + positionDelta.y}
+          width=${width}
+          height=${height}
+          fill=${fill}
+          stroke=${stroke}
+        />
+      `;
+    case CIRCLE:
+      const { rx, ry } = element;
+      return svg`
+        <ellipse
+          @mousedown=${handleMouseDown}
+          cx=${x + positionDelta.x}
+          cy=${y + positionDelta.y}
+          rx=${rx}
+          ry=${ry}
+          fill=${fill}
+          stroke=${stroke}
+        />
+      `;
+    case TEXT:
+      const { text, fontFamily, fontWeight, fontSize, id } = element;
+      return svg`
+        <style>
+          .${id} {
+            font-family: ${fontFamily};
+            font-weight: ${fontWeight};
+            font-size: ${fontSize}px;
+          }
+        </style>
+        <text @mousedown=${handleMouseDown} class=${id}
+          x=${x + positionDelta.x}
+          y=${y + positionDelta.y}
+          fill=${fill}
+          stroke=${stroke}
+        >${text}</text>
+      `;
+  }
+}
+const designElement = virtual(DesignElement);
+
+function DesignEditor({ elements }) {
   const svgElements = useMemo(
     () =>
       elements.map((element, index) => {
-        if (element.hidden) {
-          debugger;
-          return null;
-        }
-
-        return elementMapping[element.type]({
-          ...element,
-          updatePosition: updatePosition(index)
+        return designElement({
+          element,
+          index,
+          dispatchEvent: this.dispatchEvent.bind(this)
         });
       }),
     [elements]
@@ -120,7 +91,7 @@ function DesignEditor({ elements }) {
       this.dispatchEvent(new CustomEvent('new-element', { detail: { type } }));
     };
 
-    return [newElement('rectangle'), newElement('circle'), newElement('text')];
+    return [newElement(RECTANGLE), newElement(CIRCLE), newElement(TEXT)];
   }, []);
 
   const styles = useComputedStyles(this);
