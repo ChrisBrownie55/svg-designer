@@ -30,6 +30,7 @@ function App() {
   function deleteElement(event) {
     const { index } = event.detail;
     setElements(removeByIndex(elements, index));
+    setActiveElement(null);
   }
 
   function newElement(event) {
@@ -40,6 +41,7 @@ function App() {
         id: nanoid()
       })
     );
+    setActiveElement(elements.length);
   }
 
   function updatePosition(event) {
@@ -58,6 +60,7 @@ function App() {
 
   function sortElement(event) {
     const { index, delta } = event.detail;
+    setActiveElement(index);
     setElements(moveToIndex(elements, index, index + delta));
   }
 
