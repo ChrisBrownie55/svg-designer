@@ -1,5 +1,52 @@
+export const TYPES = {
+  NUMBER: Object.freeze({ type: 'number' }),
+  STRING: Object.freeze({ type: 'string' }),
+  ENUM: (...values) => Object.freeze({ type: 'enum', values })
+};
+
+export const RECTANGLE = 'rectangle';
+const RECTANGLE_STYLES = {
+  x: TYPES.NUMBER,
+  y: TYPES.NUMBER,
+  rx: TYPES.NUMBER,
+  width: TYPES.NUMBER,
+  height: TYPES.NUMBER,
+  fill: TYPES.STRING,
+  stroke: TYPES.STRING
+};
+
+export const CIRCLE = 'circle';
+const CIRCLE_STYLES = {
+  x: TYPES.NUMBER,
+  y: TYPES.NUMBER,
+  rx: TYPES.NUMBER,
+  ry: TYPES.NUMBER,
+  fill: TYPES.STRING,
+  stroke: TYPES.STRING
+};
+
+export const TEXT = 'text';
+const TEXT_STYLES = {
+  x: TYPES.NUMBER,
+  y: TYPES.NUMBER,
+  lengthAdjust: TYPES.ENUM('spacing', 'spacingAndGlyphs'),
+  textLength: TYPES.NUMBER,
+  fill: TYPES.STRING,
+  stroke: TYPES.STRING,
+  text: TYPES.STRING,
+  fontFamily: TYPES.STRING,
+  fontWeight: TYPES.NUMBER,
+  fontSize: TYPES.NUMBER
+};
+
+export const STYLES = {
+  [RECTANGLE]: RECTANGLE_STYLES,
+  [CIRCLE]: CIRCLE_STYLES,
+  [TEXT]: TEXT_STYLES
+};
+
 export default Object.freeze({
-  rectangle: Object.freeze({
+  [RECTANGLE]: Object.freeze({
     type: 'rectangle',
     hidden: false,
     x: 0,
@@ -10,7 +57,7 @@ export default Object.freeze({
     fill: 'black',
     stroke: 'none'
   }),
-  circle: Object.freeze({
+  [CIRCLE]: Object.freeze({
     type: 'circle',
     hidden: false,
     x: 150,
@@ -20,7 +67,7 @@ export default Object.freeze({
     fill: 'lightblue',
     stroke: 'none'
   }),
-  text: Object.freeze({
+  [TEXT]: Object.freeze({
     type: 'text',
     hidden: false,
     x: 0,
@@ -35,7 +82,3 @@ export default Object.freeze({
     fontSize: 16
   })
 });
-
-export const RECTANGLE = 'rectangle';
-export const CIRCLE = 'circle';
-export const TEXT = 'text';

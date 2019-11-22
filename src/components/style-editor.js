@@ -1,5 +1,6 @@
 import { html } from '/web_modules/lit-html.js';
 import { component } from '/web_modules/haunted.js';
+import { STYLES, TYPES } from '../lib/default-elements.js';
 
 function StyleEditor({ element }) {
   return html`
@@ -17,6 +18,17 @@ function StyleEditor({ element }) {
       ? html`
           <h2 class="StyleEditor__title">${element.type}</h2>
           <p>${element.id}</p>
+
+          ${Object.entries(STYLES[element.type]).map(([name, type]) => {
+            switch (type) {
+              case TYPES.NUMBER:
+                return html`
+                  <input type="number" value=${element[name]} />
+                `;
+              default:
+                return null;
+            }
+          })}
         `
       : html`
           <h2 class="StyleEditor__title">No Element Selected</h2>
