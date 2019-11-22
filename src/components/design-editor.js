@@ -77,6 +77,10 @@ function DesignEditor({ elements }) {
   const svgElements = useMemo(
     () =>
       elements.map((element, index) => {
+        if (element.hidden) {
+          return null;
+        }
+
         return designElement({
           element,
           index,
