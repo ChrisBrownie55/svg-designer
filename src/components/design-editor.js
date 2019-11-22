@@ -11,7 +11,7 @@ function DesignElement({ element, index, dispatchEvent }) {
     updatePosition(x + delta.x, y + delta.y);
   });
 
-  const updatePosition = (x, y) => {
+  const updatePosition = (x, y) =>
     dispatchEvent(
       new CustomEvent('update-position', {
         detail: {
@@ -22,7 +22,11 @@ function DesignElement({ element, index, dispatchEvent }) {
         bubbles: true
       })
     );
-  };
+
+  const setActive = () =>
+    dispatchEvent(
+      new CustomEvent('update-active-element', { detail: { index } })
+    );
 
   const { x, y, fill, stroke, id } = element;
   switch (element.type) {
@@ -30,6 +34,7 @@ function DesignElement({ element, index, dispatchEvent }) {
       const { width, height } = element;
       return svg`
         <rect
+          @click=${setActive}
           @mousedown=${handleMouseDown}
           x=${x + positionDelta.x}
           y=${y + positionDelta.y}
@@ -43,6 +48,7 @@ function DesignElement({ element, index, dispatchEvent }) {
       const { rx, ry } = element;
       return svg`
         <ellipse
+          @click=${setActive}
           @mousedown=${handleMouseDown}
           cx=${x + positionDelta.x}
           cy=${y + positionDelta.y}
@@ -62,7 +68,10 @@ function DesignElement({ element, index, dispatchEvent }) {
             font-size: ${fontSize}px;
           }
         </style>
-        <text @mousedown=${handleMouseDown} class=${id}
+        <text
+          @click=${setActive}
+          @mousedown=${handleMouseDown}
+          class=${id}
           x=${x + positionDelta.x}
           y=${y + positionDelta.y}
           fill=${fill}

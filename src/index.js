@@ -16,7 +16,7 @@ function App() {
   const [elements, setElements] = useState([]);
   const [activeElement, setActiveElement] = useState(null);
 
-  useEffect(() => console.log(elements), [elements]);
+  useEffect(() => console.log(activeElement), [activeElement]);
 
   function toggleHidden(event) {
     const { index } = event.detail;
@@ -61,6 +61,11 @@ function App() {
     setElements(moveToIndex(elements, index, index + delta));
   }
 
+  function updateActiveElement(event) {
+    const { index } = event.detail;
+    setActiveElement(index);
+  }
+
   return html`
     <style>
       :host {
@@ -76,14 +81,16 @@ function App() {
       @toggle-hidden=${toggleHidden}
       @delete-element=${deleteElement}
       @sort-element=${sortElement}
+      @update-active-element=${updateActiveElement}
     ></element-list>
     <design-editor
       .elements=${elements}
       @new-element=${newElement}
       @update-position=${updatePosition}
+      @update-active-element=${updateActiveElement}
     ></design-editor>
     <style-editor
-      .element=${activeElement && elements[activeElement]}
+      .element=${activeElement !== null ? elements[activeElement] : null}
       @update-style=${updateStyle}
     ></style-editor>
   `;

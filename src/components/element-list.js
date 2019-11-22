@@ -22,10 +22,16 @@ function ElementList({ elements, activeElement }) {
         const sortUp = sortElement(-1);
         const sortDown = sortElement(1);
 
+        const setActive = () =>
+          this.dispatchEvent(
+            new CustomEvent('update-active-element', { detail: { index } })
+          );
+
         return html`
           <article
             class="ElementList__item ${id}-list-item"
             ?active=${index === activeElement}
+            @click=${setActive}
           >
             <div class="item-movement-actions">
               <button
@@ -68,7 +74,7 @@ function ElementList({ elements, activeElement }) {
           </article>
         `;
       }),
-    [elements]
+    [elements, activeElement]
   );
 
   return html`
@@ -76,6 +82,7 @@ function ElementList({ elements, activeElement }) {
       .item-movement-actions {
         display: flex;
         flex-direction: column;
+        margin-right: 0.25rem;
       }
 
       .item-movement-action {
@@ -107,6 +114,10 @@ function ElementList({ elements, activeElement }) {
         align-items: center;
 
         margin-bottom: 0.45rem;
+      }
+
+      .ElementList__item[active] {
+        background-color: hsl(120, 100%, 90%);
       }
 
       .ElementList__item > .item-title {
