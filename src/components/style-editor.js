@@ -19,11 +19,24 @@ function StyleEditor({ element }) {
           <h2 class="StyleEditor__title">${element.type}</h2>
           <p>${element.id}</p>
 
-          ${Object.entries(STYLES[element.type]).map(([name, type]) => {
+          ${Object.entries(STYLES[element.type]).map(([name, type], index) => {
+            const updateStyle = event => {
+              debugger;
+              this.dispatchEvent(
+                new CustomEvent('update-style', {
+                  detail: { index, style: { [name]: event.target.value } }
+                })
+              );
+            };
+
             switch (type) {
               case TYPES.NUMBER:
                 return html`
-                  <input type="number" value=${element[name]} />
+                  <input
+                    type="number"
+                    value=${element[name]}
+                    @input=${updateStyle}
+                  />
                 `;
               default:
                 return null;

@@ -53,7 +53,7 @@ function App() {
 
   function updateStyle(event) {
     const { style, index } = event.detail;
-    const element = { ...elements[index], style };
+    const element = { ...elements[index], ...style };
 
     setElements(replaceAtIndex(elements, index, element));
   }
