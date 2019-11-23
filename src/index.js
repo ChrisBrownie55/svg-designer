@@ -50,10 +50,11 @@ function App() {
   }
 
   function updateStyle(event) {
-    const { style, index } = event.detail;
-    const element = { ...elements[index], ...style };
+    debugger;
+    const { style } = event.detail;
+    const element = { ...elements[activeElement], ...style };
 
-    setElements(replaceAtIndex(elements, index, element));
+    setElements(replaceAtIndex(elements, activeElement, element));
   }
 
   function sortElement(event) {

@@ -19,12 +19,12 @@ function StyleEditor({ element }) {
           <h2 class="StyleEditor__title">${element.type}</h2>
           <p>${element.id}</p>
 
-          ${Object.entries(STYLES[element.type]).map(([name, type], index) => {
+          ${Object.entries(STYLES[element.type]).map(([name, type]) => {
             const updateStyle = event => {
               debugger;
               this.dispatchEvent(
                 new CustomEvent('update-style', {
-                  detail: { index, style: { [name]: event.target.value } }
+                  detail: { style: { [name]: event.target.value } }
                 })
               );
             };
