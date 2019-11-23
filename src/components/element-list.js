@@ -31,7 +31,7 @@ function ElementList({ elements, activeElement }) {
           <article
             class="ElementList__item ${id}-list-item"
             ?active=${index === activeElement}
-            @click=${setActive}
+            @mousedown=${setActive}
           >
             <div class="item-movement-actions">
               <button

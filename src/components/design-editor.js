@@ -7,9 +7,11 @@ import useDrag from '../lib/use-drag.js';
 import { RECTANGLE, CIRCLE, TEXT } from '../lib/default-elements.js';
 
 function DesignElement({ element, index, dispatchEvent }) {
-  const { positionDelta, handleMouseDown } = useDrag(delta => {
-    updatePosition(x + delta.x, y + delta.y);
-  });
+  const { positionDelta, handleMouseDown: handleMouseDownDrag } = useDrag(
+    delta => {
+      updatePosition(x + delta.x, y + delta.y);
+    }
+  );
 
   const updatePosition = (x, y) =>
     dispatchEvent(
@@ -28,13 +30,17 @@ function DesignElement({ element, index, dispatchEvent }) {
       new CustomEvent('update-active-element', { detail: { index } })
     );
 
+  function handleMouseDown(event) {
+    setActive();
+    handleMouseDownDrag(event);
+  }
+
   const { x, y, fill, stroke, id } = element;
   switch (element.type) {
     case RECTANGLE:
       const { width, height } = element;
       return svg`
         <rect
-          @click=${setActive}
           @mousedown=${handleMouseDown}
           x=${x + positionDelta.x}
           y=${y + positionDelta.y}
@@ -48,7 +54,6 @@ function DesignElement({ element, index, dispatchEvent }) {
       const { rx, ry } = element;
       return svg`
         <ellipse
-          @click=${setActive}
           @mousedown=${handleMouseDown}
           cx=${x + positionDelta.x}
           cy=${y + positionDelta.y}
@@ -69,7 +74,6 @@ function DesignElement({ element, index, dispatchEvent }) {
           }
         </style>
         <text
-          @click=${setActive}
           @mousedown=${handleMouseDown}
           class=${id}
           x=${x + positionDelta.x}
