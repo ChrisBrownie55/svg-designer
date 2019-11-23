@@ -1,5 +1,5 @@
 import { html } from '/web_modules/lit-html.js';
-import { component, useState, useEffect } from '/web_modules/haunted.js';
+import { component, useState } from '/web_modules/haunted.js';
 import './components/element-list.js';
 import './components/design-editor.js';
 import './components/style-editor.js';
@@ -15,8 +15,6 @@ import nanoid from '/web_modules/nanoid-esm.js';
 function App() {
   const [elements, setElements] = useState([]);
   const [activeElement, setActiveElement] = useState(null);
-
-  useEffect(() => console.log(activeElement), [activeElement]);
 
   function toggleHidden(event) {
     const { index } = event.detail;
