@@ -58,7 +58,7 @@ function App() {
 
   function sortElement(event) {
     const { index, delta } = event.detail;
-    setActiveElement(index);
+    setActiveElement(index + delta);
     setElements(moveToIndex(elements, index, index + delta));
   }
 
