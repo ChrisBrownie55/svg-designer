@@ -35,7 +35,7 @@ function DesignElement({ element, index, dispatchEvent }) {
     handleMouseDownDrag(event);
   }
 
-  const { x, y, fill, stroke, id } = element;
+  const { x, y, rx, fill, stroke, id } = element;
   switch (element.type) {
     case RECTANGLE:
       const { width, height } = element;
@@ -44,6 +44,7 @@ function DesignElement({ element, index, dispatchEvent }) {
           @mousedown=${handleMouseDown}
           x=${x + positionDelta.x}
           y=${y + positionDelta.y}
+          rx=${rx}
           width=${width}
           height=${height}
           fill=${fill}
@@ -51,7 +52,7 @@ function DesignElement({ element, index, dispatchEvent }) {
         />
       `;
     case CIRCLE:
-      const { rx, ry } = element;
+      const { ry } = element;
       return svg`
         <ellipse
           @mousedown=${handleMouseDown}

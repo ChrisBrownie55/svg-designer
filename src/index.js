@@ -50,7 +50,6 @@ function App() {
   }
 
   function updateStyle(event) {
-    debugger;
     const { style } = event.detail;
     const element = { ...elements[activeElement], ...style };
 
