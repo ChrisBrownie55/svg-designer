@@ -56,6 +56,10 @@ function StyleEditor({ element }) {
         border-left: solid 1px lightgrey;
       }
 
+      .StyleEditor__title {
+        text-transform: capitalize;
+      }
+
       .StyleEditor__inputs {
         display: flex;
         flex-direction: column;
@@ -64,6 +68,8 @@ function StyleEditor({ element }) {
       .StyleEditor__inputs > label {
         display: flex;
         justify-content: space-between;
+
+        margin-bottom: 0.2rem;
       }
     </style>
 
