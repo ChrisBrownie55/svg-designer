@@ -19,13 +19,26 @@ function StyleEditor({ element }) {
 
       switch (type) {
         case TYPES.NUMBER:
-          console.log(element[name]);
           return html`
-            <input
-              type="number"
-              .value=${element[name]}
-              @input=${updateStyle}
-            />
+            <label>
+              ${name}
+              <input
+                type="number"
+                .value=${element[name]}
+                @input=${updateStyle}
+              />
+            </label>
+          `;
+        case TYPES.STRING:
+          return html`
+            <label>
+              ${name}
+              <input
+                type="text"
+                .value=${element[name]}
+                @input=${updateStyle}
+              />
+            </label>
           `;
         default:
           return null;
@@ -42,6 +55,16 @@ function StyleEditor({ element }) {
 
         border-left: solid 1px lightgrey;
       }
+
+      .StyleEditor__inputs {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .StyleEditor__inputs > label {
+        display: flex;
+        justify-content: space-between;
+      }
     </style>
 
     ${element
@@ -49,7 +72,7 @@ function StyleEditor({ element }) {
           <h2 class="StyleEditor__title">${element.type}</h2>
           <p>${element.id}</p>
 
-          ${styleInputs}
+          <section class="StyleEditor__inputs">${styleInputs}</section>
         `
       : html`
           <h2 class="StyleEditor__title">No Element Selected</h2>
