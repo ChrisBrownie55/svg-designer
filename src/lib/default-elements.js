@@ -12,7 +12,8 @@ const RECTANGLE_STYLES = {
   width: TYPES.NUMBER,
   height: TYPES.NUMBER,
   fill: TYPES.STRING,
-  stroke: TYPES.STRING
+  stroke: TYPES.STRING,
+  transform: TYPES.STRING
 };
 
 export const CIRCLE = 'circle';
@@ -22,7 +23,8 @@ const CIRCLE_STYLES = {
   rx: TYPES.NUMBER,
   ry: TYPES.NUMBER,
   fill: TYPES.STRING,
-  stroke: TYPES.STRING
+  stroke: TYPES.STRING,
+  transform: TYPES.STRING
 };
 
 export const TEXT = 'text';
@@ -36,7 +38,8 @@ const TEXT_STYLES = {
   text: TYPES.STRING,
   fontFamily: TYPES.STRING,
   fontWeight: TYPES.NUMBER,
-  fontSize: TYPES.NUMBER
+  fontSize: TYPES.NUMBER,
+  transform: TYPES.STRING
 };
 
 export const STYLES = {
@@ -55,7 +58,8 @@ export default Object.freeze({
     width: 100,
     height: 100,
     fill: 'black',
-    stroke: 'none'
+    stroke: 'none',
+    transform: 'none'
   }),
   [CIRCLE]: Object.freeze({
     type: 'circle',
@@ -65,7 +69,8 @@ export default Object.freeze({
     rx: 50,
     ry: 50,
     fill: 'lightblue',
-    stroke: 'none'
+    stroke: 'none',
+    transform: 'none'
   }),
   [TEXT]: Object.freeze({
     type: 'text',
@@ -79,6 +84,7 @@ export default Object.freeze({
     text: 'The quick brown fox jumps over the lazy dog',
     fontFamily: 'Roboto, Arial, Helvetica, sans-serif',
     fontWeight: 500,
-    fontSize: 16
+    fontSize: 16,
+    transform: 'none'
   })
 });

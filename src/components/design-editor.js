@@ -35,13 +35,21 @@ function DesignElement({ element, index, dispatchEvent }) {
     handleMouseDownDrag(event);
   }
 
-  const { x, y, rx, fill, stroke, id } = element;
+  const { x, y, rx, fill, stroke, id, transform } = element;
   switch (element.type) {
     case RECTANGLE:
       const { width, height } = element;
       return svg`
+        <style>
+          .${id} {
+            transform: ${transform};
+            transform-origin: center;
+            transform-box: fill-box;
+          }
+        </style>
         <rect
           @mousedown=${handleMouseDown}
+          class=${id}
           x=${x + positionDelta.x}
           y=${y + positionDelta.y}
           rx=${rx}
@@ -54,8 +62,16 @@ function DesignElement({ element, index, dispatchEvent }) {
     case CIRCLE:
       const { ry } = element;
       return svg`
+        <style>
+          .${id} {
+            transform: ${transform};
+            transform-origin: center;
+            transform-box: fill-box;
+          }
+        </style>
         <ellipse
           @mousedown=${handleMouseDown}
+          class=${id}
           cx=${x + positionDelta.x}
           cy=${y + positionDelta.y}
           rx=${rx}
@@ -65,13 +81,17 @@ function DesignElement({ element, index, dispatchEvent }) {
         />
       `;
     case TEXT:
-      const { text, fontFamily, fontWeight, fontSize, id } = element;
+      const { text, fontFamily, fontWeight, fontSize } = element;
       return svg`
         <style>
           .${id} {
             font-family: ${fontFamily};
             font-weight: ${fontWeight};
             font-size: ${fontSize}px;
+
+            transform: ${transform};
+            transform-origin: center;
+            transform-box: fill-box;
           }
         </style>
         <text
