@@ -36,7 +36,7 @@ function App() {
     setElements(
       elements.concat({
         ...defaultElements[type],
-        id: nanoid()
+        id: type + nanoid()
       })
     );
     setActiveElement(elements.length);

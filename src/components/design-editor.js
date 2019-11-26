@@ -1,5 +1,6 @@
 import { html, svg } from '/web_modules/lit-html.js';
 import { component, useMemo, virtual } from '/web_modules/haunted.js';
+import { toClipboard } from '/web_modules/copee.js';
 
 import useComputedStyles from '../lib/use-computed-styles.js';
 import useDrag from '../lib/use-drag.js';
@@ -136,6 +137,18 @@ function DesignEditor({ elements }) {
   const width = styles.width.slice(0, -2);
   const height = styles.height.slice(0, -2);
 
+  const exportSVG = () => {
+    if (
+      toClipboard(
+        this.shadowRoot.querySelector('svg.DesignEditor__svg').outerHTML
+      )
+    ) {
+      alert('The SVG has been copied to your clipboard');
+    } else {
+      alert('Unable to copy your SVG');
+    }
+  };
+
   return html`
     <style>
       :host {
@@ -169,6 +182,9 @@ function DesignEditor({ elements }) {
       </button>
       <button class="DesignEditor__action new-text" @click=${newText}>
         Text
+      </button>
+      <button class="DesignEditor__action export-svg" @click=${exportSVG}>
+        Export SVG
       </button>
     </section>
 
