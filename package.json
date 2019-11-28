@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "install": "pika install",
-    "start": "serve docs/",
-    "build": "pika build --out docs/"
+    "start": "serve ./"
   },
   "keywords": [],
   "author": "",
@@ -19,25 +18,12 @@
     "nanoid-esm": "^2.1.0-esm.4"
   },
   "devDependencies": {
-    "@pika/pack": "^0.5.0",
-    "@pika/plugin-build-web": "^0.8.1",
-    "@pika/plugin-bundle-web": "^0.8.1",
-    "@pika/plugin-standard-pkg": "^0.8.1",
     "@pika/web": "^0.6.1",
     "serve": "^11.2.0"
   },
   "@pika/web": {
     "dedupe": [
       "lit-html"
-    ]
-  },
-  "@pika/pack": {
-    "pipeline": [
-      [
-        "@pika/plugin-standard-pkg",
-        "@pika/plugin-build-web",
-        "@pika/plugin-bundle-web"
-      ]
     ]
   }
 }
