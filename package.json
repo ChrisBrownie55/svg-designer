@@ -12,7 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "copee": "^1.0.6",
-    "haunted": "^4.6.2",
+    "haunted": "^4.6.3",
     "lit-html": "^1.1.2",
     "mini-debounce": "^1.0.6",
     "nanoid-esm": "^2.1.0-esm.4"
