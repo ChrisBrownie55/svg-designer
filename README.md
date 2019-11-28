@@ -5,3 +5,5 @@ This was a research and experimentation project geared towards using web compone
 This is bundled with [pikapkg](https://pika.dev). This makes it much easier to natively use ESM and avoid complicated setups when I'm only using modern native JavaScript features (no JSX or need to support IE11).
 
 This project was research for an article I'm writing on [my blog](https://chrisbrownie.dev)! Check back soon to see the article, for now you might check out the other articles I've written 👍.
+
+View the site at https://chrisbrownie55.github.io/svg-designer/
