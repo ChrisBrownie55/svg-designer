@@ -1,52 +1,7 @@
-# 🖥️ create-pika-app
+# SVG Designer
 
-#### 🎉 `@Pika/Web` + `lit-html` + `lit-element` Example Project
+This was a research and experimentation project geared towards using web components for full applications. I chose [haunted](https://github.com/matthewp/haunted) to ease the development process via its React-like hooks that integrate easily with web component architecture. I used lit-html to allow JSX-like syntax with both HTML templates and SVG templates (CSS has to be done inside the HTML template with haunted 🤷‍♀️)
 
-<img width="500px" src="https://i.imgur.com/f3oYQJS.png" align="right"></img>
+This is bundled with [pikapkg](https://pika.dev). This makes it much easier to natively use ESM and avoid complicated setups when I'm only using modern native JavaScript features (no JSX or need to support IE11).
 
-## 🚀 Getting Started
-
-```bash
-npm install
-npm start
-```
-
-It will then be available at `localhost:5000`
-
-## A note on directives
-
-If you want to use directives, you'll have to add them to the `webDependencies` property in your `package.json`:
-
-```json
-  "@pika/web": {
-    "webDependencies": [
-        "lit-html",
-        "lit-element",
-        "lit-html/directives/until.js",
-        "lit-html/directives/class-map.js"
-    ],
-  },
-```
-
-or
-
-```json
-  "@pika/web": {
-    "webDependencies": [
-        "lit-html",
-        "lit-element",
-        "lit-html/directives/"
-    ],
-  },
-```
-
-### 🙏 Special Thanks
-
-[@pika/web](https://github.com/pikapkg/web)  
-[lit-html](https://github.com/polymer/lit-html)
-[lit-element](https://github.com/polymer/lit-element)
-[create-pika-app](https://github.com/ndom91/create-pika-app)
-
----
-
-📝 `License:` [`MIT`](https://opensource.org/licenses/MIT)
+This project was research for an article I'm writing on [my blog](https://chrisbrownie.dev)! Check back soon to see the article, for now you might check out the other articles I've written 👍.
