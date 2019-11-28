@@ -1,5 +1,5 @@
-import { html } from '/web_modules/lit-html.js';
-import { component, useState } from '/web_modules/haunted.js';
+import { html } from '../web_modules/lit-html.js';
+import { component, useState } from '../web_modules/haunted.js';
 import './components/element-list.js';
 import './components/design-editor.js';
 import './components/style-editor.js';
@@ -10,7 +10,7 @@ import {
   moveToIndex
 } from './lib/array-functions.js';
 import defaultElements from './lib/default-elements.js';
-import nanoid from '/web_modules/nanoid-esm.js';
+import nanoid from '../web_modules/nanoid-esm.js';
 
 function App() {
   const [elements, setElements] = useState([]);

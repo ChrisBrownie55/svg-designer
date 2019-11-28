@@ -1,4 +1,4 @@
-import { useState, useEffect } from '/web_modules/haunted.js';
+import { useState, useEffect } from '../../web_modules/haunted.js';
 
 export const NOT_DRAGGING = 'not dragging';
 export const DRAGGING = 'dragging';

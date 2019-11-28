@@ -1,6 +1,6 @@
-import { html, svg } from '/web_modules/lit-html.js';
-import { component, useMemo, virtual } from '/web_modules/haunted.js';
-import { toClipboard } from '/web_modules/copee.js';
+import { html, svg } from '../../web_modules/lit-html.js';
+import { component, useMemo, virtual } from '../../web_modules/haunted.js';
+import { toClipboard } from '../../web_modules/copee.js';
 
 import useComputedStyles from '../lib/use-computed-styles.js';
 import useDrag from '../lib/use-drag.js';

@@ -1,4 +1,4 @@
-import { useState, useEffect } from '/web_modules/haunted.js';
+import { useState, useEffect } from '../../web_modules/haunted.js';
 import useWindowSize from './use-window-size.js';
 
 export default function useComputedStyles(element) {

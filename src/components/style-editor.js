@@ -1,5 +1,5 @@
-import { html } from '/web_modules/lit-html.js';
-import { component, useMemo } from '/web_modules/haunted.js';
+import { html } from '../../web_modules/lit-html.js';
+import { component, useMemo } from '../../web_modules/haunted.js';
 import { STYLES, TYPES } from '../lib/default-elements.js';
 
 function StyleEditor({ element }) {

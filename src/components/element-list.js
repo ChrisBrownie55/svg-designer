@@ -1,5 +1,5 @@
-import { html, svg } from '/web_modules/lit-html.js';
-import { component, useMemo } from '/web_modules/haunted.js';
+import { html, svg } from '../../web_modules/lit-html.js';
+import { component, useMemo } from '../../web_modules/haunted.js';
 
 function ElementList({ elements, activeElement }) {
   const elementList = useMemo(

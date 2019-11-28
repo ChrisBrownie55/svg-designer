@@ -1,5 +1,5 @@
-import { useEffect, useState } from '/web_modules/haunted.js';
-import { debounce } from '/web_modules/mini-debounce.js';
+import { useEffect, useState } from '../../web_modules/haunted.js';
+import { debounce } from '../../web_modules/mini-debounce.js';
 
 export default function useWindowSize() {
   const [size, setSize] = useState({
