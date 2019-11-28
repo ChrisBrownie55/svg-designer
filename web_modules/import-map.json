@@ -1,0 +1,9 @@
+{
+  "imports": {
+    "copee": "./copee.js",
+    "haunted": "./haunted.js",
+    "lit-html": "./lit-html.js",
+    "mini-debounce": "./mini-debounce.js",
+    "nanoid-esm": "./nanoid-esm.js"
+  }
+}
